@@ -1,0 +1,10 @@
+/.vscode export-ignore  
+.gitattributes export-ignore  
+.gitignore export-ignore
+.fabfile export-ignore
+fabfile.py export-ignore
+/tests export-ignore
+/docs export-ignore
+/migrations export-ignore
+/app/assets export-ignore
+tar.py export-ignore
