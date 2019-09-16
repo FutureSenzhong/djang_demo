@@ -18,7 +18,10 @@
         <div class="col-12 alert alert-success">作者：{{ article.author }}</div>
         <!-- 文章正文 -->
         <div class="col-12">
-            <p>{{ article.body }}</p>
+            <!--Django出于安全的考虑，会将输出的HTML代码进行转义，这使得article.body中渲染的HTML文本无法正常显示。
+                管道符|是Django中过滤器的写法，而|safe就类似给article.body贴了一个标签，表示这一段字符不需要进行转义了。
+             -->
+            <p>{{ article.body | safe }}</p>
         </div>
     </div>
 </div>
