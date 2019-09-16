@@ -75,9 +75,9 @@ def article_create(request):
         # 创建表单类实例
         article_post_form = ArticlePostForm()
         # 赋值上下文
-        context = {'article_post_form': article_post_form}
+        data = {'article_post_form': article_post_form}
         # 返回模板
-        return render(request, 'article/create.html', context)
+        return render(request, 'article/create.html', data)
 
 
 # 删文章
@@ -123,7 +123,7 @@ def article_update(request, article_id):
             article.body = request.POST['body']
             article.save()
             # 完成后返回到修改后的文章中。需传入文章的 id 值
-            return redirect("article:article_detail", id=article_id)
+            return redirect("article:article_detail", article_id=article_id)
         # 如果数据不合法，返回错误信息
         else:
             return HttpResponse("表单内容有误，请重新填写。")
@@ -133,6 +133,6 @@ def article_update(request, article_id):
         # 创建表单类实例
         article_post_form = ArticlePostForm()
         # 赋值上下文，将 article 文章对象也传递进去，以便提取旧的内容
-        data = { 'article': article, 'article_post_form': article_post_form }
+        data = {'article': article, 'article_post_form': article_post_form}
         # 将响应返回到模板中
         return render(request, 'article/update.html', data)

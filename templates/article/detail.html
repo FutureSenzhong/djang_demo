@@ -18,6 +18,7 @@
         <div class="col-12 alert alert-success">作者：{{ article.author }}
             <!--使用post表单删除，并且验证csrf—token防止跨域请求伪造攻击 -->
             <a href="#" onclick="confirm_safe_delete()">删除文章</a>
+            <a href="{% url "article:article_update" article.id %}" >修改文章</a>
             <!-- 新增一个隐藏的表单 -->
             <form
                   style="display:none;"

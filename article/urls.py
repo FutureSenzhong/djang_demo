@@ -36,4 +36,7 @@ urlpatterns = [
 
     # 安全删除文章
     path('article-safe-delete/<int:article_id>/', views.article_safe_delete, name='article_safe_delete'),
+
+    # 更新文章
+    path('article-update/<int:article_id>/', views.article_update, name='article_update'),
 ]
