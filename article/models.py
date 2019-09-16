@@ -8,6 +8,9 @@ from django.db import models
 from django.utils import timezone
 
 
+# 每当你修改了models.py文件，都需要用
+# python manage.py makemigrations生成迁移文件
+# python manage.py migrate将迁移应用到数据中
 class ArticlePost(models.Model):
     # 作者
     author = models.ForeignKey(User, on_delete=models.CASCADE)
