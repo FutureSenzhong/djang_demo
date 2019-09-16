@@ -30,4 +30,7 @@ urlpatterns = [
 
     # 写文章
     path('article-create/', views.article_create, name='article_create'),
+
+    # 删除文章
+    path('article-delete/<int:article_id>/', views.article_delete, name='article_delete'),
 ]

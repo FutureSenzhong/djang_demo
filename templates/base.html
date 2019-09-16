@@ -31,6 +31,8 @@
     <script src="{% static 'popper/popper.js' %}"></script>
     <!-- 引入bootstrap的js文件 -->
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <!-- 引入layer.js  layer插件依赖jquery才能正常工作，因此要在jquery的后面引入layer。 -->
+    <script src="{% static 'layer/layer.js' %}"></script>
 </body>
 
 </html>
