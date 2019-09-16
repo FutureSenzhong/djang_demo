@@ -26,5 +26,8 @@ urlpatterns = [
     path('article-list/', views.article_list, name='article_list'),
 
     # 文章详情页面
-    path('article-detail/<int:article_id>/', views.article_detail, name='article_detail')
+    path('article-detail/<int:article_id>/', views.article_detail, name='article_detail'),
+
+    # 写文章
+    path('article-create/', views.article_create, name='article_create'),
 ]
