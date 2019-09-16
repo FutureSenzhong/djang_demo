@@ -61,7 +61,7 @@ def user_register(request):
             return HttpResponse("注册表单输入有误。请重新输入~")
     elif request.method == 'GET':
         user_register_form = UserRegisterForm()
-        data = {'form': user_register_form}
+        data = {'user_register_form': user_register_form}
         return render(request, 'user/register.html', data)
     else:
         return HttpResponse("请使用GET或POST请求数据")
