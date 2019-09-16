@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -37,3 +37,9 @@ def user_login(request):
         return render(request, 'user/login.html', data)
     else:
         return HttpResponse("请使用GET或POST请求数据")
+
+
+# 用户退出
+def user_logout(request):
+    logout(request)
+    return redirect("article:article_list")
