@@ -22,21 +22,6 @@ app_name = 'user'
 
 # article应用的路由配置
 urlpatterns = [
-    # 文章列表
-    path('article-list/', views.article_list, name='article_list'),
-
-    # 文章详情页面
-    path('article-detail/<int:article_id>/', views.article_detail, name='article_detail'),
-
-    # 写文章
-    path('article-create/', views.article_create, name='article_create'),
-
-    # 删除文章
-    # path('article-delete/<int:article_id>/', views.article_delete, name='article_delete'),
-
-    # 安全删除文章
-    path('article-safe-delete/<int:article_id>/', views.article_safe_delete, name='article_safe_delete'),
-
-    # 更新文章
-    path('article-update/<int:article_id>/', views.article_update, name='article_update'),
+    # 用户登录
+    path('login/', views.user_login, name='login'),
 ]

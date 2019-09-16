@@ -17,6 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+
+    # 后台站点管理
     path('admin/', admin.site.urls),
+
+    # 用户管理
+    path('user/', include('user.urls', namespace='user')),
+
+    # 文章管理
     path('article/', include('article.urls', namespace='article')),
 ]
