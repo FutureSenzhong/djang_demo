@@ -19,3 +19,13 @@ def article_list(request):
 
     # 渲染模板文件展示数据
     return render(request,  'article/list.html', data)
+
+
+# 文章详情
+def article_detail(request, article_id):
+    # 取出相应的文章
+    article = ArticlePost.objects.get(id=article_id)
+    # 需要传递给模板的对象
+    data = {'article': article}
+    # 载入模板，并返回context对象
+    return render(request, 'article/detail.html', data)

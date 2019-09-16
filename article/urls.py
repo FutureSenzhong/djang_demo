@@ -13,8 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
 # 正则部署的应用名称,Django2.0之后，app的urls.py必须配置app_name，否则会报错。
 from article import views
@@ -23,5 +22,9 @@ app_name = 'article'
 
 # article应用的路由配置
 urlpatterns = [
-    path('article-list/', views.article_list, name='article_list')
+    # 文章列表
+    path('article-list/', views.article_list, name='article_list'),
+
+    # 文章详情页面
+    path('article-detail/<int:article_id>/', views.article_detail, name='article_detail')
 ]
