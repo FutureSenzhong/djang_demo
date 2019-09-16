@@ -11,11 +11,30 @@
         <!-- 条目  前面的article是在项目根目录的urls.py中定义的app的名称
             后面的article_list是在app中的urls.py中定义的具体的路由地址 -->
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'article:article_list' %}">文章列表</a>
+          <a class="nav-link" href="{% url 'article:article_list' %}">主页</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'article:article_create' %}">添加文章</a>
         </li>
+
+        <!-- Django的 if 模板语句 is_authenticated是models.User类的属性，用于判断用户是否已通过身份验证。-->
+        {% if user.is_authenticated %}
+            <!-- 如果用户已经登录，则显示用户名下拉框 -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  欢迎{{ user.username }}回来！
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">退出登录</a>
+                </div>
+            </li>
+        <!-- 如果用户未登录，则显示 “登录” -->
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'userprofile:login' %}">登录</a>
+            </li>
+        <!-- if 语句在这里结束 -->
+        {% endif %}
       </ul>
     </div>
 
