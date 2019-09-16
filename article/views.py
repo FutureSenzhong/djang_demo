@@ -81,10 +81,21 @@ def article_create(request):
 
 
 # 删文章
-def article_delete(request, article_id):
-    # 根据 id 获取需要删除的文章
-    article = ArticlePost.objects.get(id=article_id)
-    # 调用.delete()方法删除文章
-    article.delete()
-    # 完成删除后返回文章列表
-    return redirect("article:article_list")
+# def article_delete(request, article_id):
+#     # 根据 id 获取需要删除的文章
+#     article = ArticlePost.objects.get(id=article_id)
+#     # 调用.delete()方法删除文章
+#     article.delete()
+#     # 完成删除后返回文章列表
+#     return redirect("article:article_list")
+
+
+# 安全删除
+# 安全删除文章
+def article_safe_delete(request, article_id):
+    if request.method == 'POST':
+        article = ArticlePost.objects.get(id=article_id)
+        article.delete()
+        return redirect("article:article_list")
+    else:
+        return HttpResponse("仅允许post请求")
