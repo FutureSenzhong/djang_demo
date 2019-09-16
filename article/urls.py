@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 
 # 正则部署的应用名称,Django2.0之后，app的urls.py必须配置app_name，否则会报错。
+from article import views
+
 app_name = 'article'
 
 # article应用的路由配置
 urlpatterns = [
-
+    path('article-list/', views.article_list, name='article_list')
 ]
