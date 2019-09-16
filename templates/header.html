@@ -12,6 +12,8 @@
             后面的article_list是在app中的urls.py中定义的具体的路由地址 -->
         <li class="nav-item">
           <a class="nav-link" href="{% url 'article:article_list' %}">文章列表</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'article:article_create' %}">添加文章</a>
         </li>
       </ul>
