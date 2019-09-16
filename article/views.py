@@ -6,6 +6,7 @@ from django.shortcuts import render
 
 # 编写第一个Hello Django视图程序
 from article.models import ArticlePost
+from my_blog.settings import MARKDOWN_EXTENSIONS
 
 
 def article_list(request):
@@ -38,13 +39,7 @@ def article_detail(request, article_id):
     article = ArticlePost.objects.get(id=article_id)
 
     # markdown格式的文章内容
-    article.body = markdown.markdown(article.body,
-                                     extensions=[
-                                         # 包含 缩写、表格等常用扩展
-                                         'markdown.extensions.extra',
-                                         # 语法高亮扩展
-                                         'markdown.extensions.codehilite',
-                                     ])
+    article.body = markdown.markdown(article.body, extensions=MARKDOWN_EXTENSIONS)
     # 需要传递给模板的对象
     data = {'article': article}
     # 载入模板，并返回context对象

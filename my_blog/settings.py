@@ -123,3 +123,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+# markdown的支持配置
+MARKDOWN_EXTENSIONS = [
+                        # 包含 缩写、表格等常用扩展
+                        'markdown.extensions.extra',
+                        # 语法高亮扩展
+                        'markdown.extensions.codehilite',
+                        ]
