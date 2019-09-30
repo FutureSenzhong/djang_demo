@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'user',
     'show_time',
     'rest_framework',
+    'django_seed',
 ]
 
 MIDDLEWARE = [

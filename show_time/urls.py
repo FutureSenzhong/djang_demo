@@ -27,20 +27,20 @@ urlpatterns = [
     path('article-list/', home.article_list, name='article_list'),
 
     # 关于我
-    # path('about/', about, name='about'),
+    path('about/', about.about, name='about'),
 
     # 照片墙
-    # path('photo/', photo, name='photo'),
+    path('photo/', photo.photo, name='photo'),
 
     # 慢生活
-    # path('life/', life, name='life'),
+    path('life/', life.life, name='life'),
 
     # 学无止境
-    # path('study/', study, name='study'),
+    path('study/', study.study, name='study'),
 
     # 时间轴
-    # path('time/', time, name='time'),
+    path('time/', time.time, name='time'),
 
     # 留言板
-    # path('comment/', comment, name='comment'),
+    path('comment/', comment.comment, name='comment'),
 ]

@@ -23,20 +23,17 @@ def index(request):
 
 def article_list(request):
     per_page = int(request.GET.get('per_page', 10))
-    curr_page = int(request.GET.get('curr_page', 1)) - 1
+    curr_page = int(request.GET.get('curr_page', 1))
     # hello django
     # return HttpResponse('Hello Django')
 
-    # 查询取出所有的文章
-    articles = ArticlePost.objects.all().all()
-    # 分页
-    paginator = Paginator(articles, per_page)
-    # 总数量
-    total = paginator.count
     # 获取指定页的数据
-    curr_page = paginator.get_page(curr_page)
+    articles = ArticlePost.objects.all()[curr_page*per_page:(curr_page+1)*per_page]
+    # 分页
+    # 总数量
+    total = ArticlePost.objects.count()
     # 序列化
-    json_data = PostSerializers(curr_page, many=True)
+    json_data = PostSerializers(articles, many=True)
     # 数据组合成json传递给templates模板使用
     data = {'data': json_data.data, 'total': total, 'status_code': 200}
 
