@@ -1,0 +1,192 @@
+<!doctype html>
+<html ng-app="blogHomeApp">
+    {% load staticfiles %}
+<head>
+    <meta charset="utf-8">
+    <title>首页_梦想开始的地方 - 一个站在web前端设计之路的女技术员个人博客网站</title>
+    <meta name="keywords" content="个人博客,杨青个人博客,个人博客模板,杨青" />
+    <meta name="description" content="杨青个人博客，是一个站在web前端设计之路的女程序员个人网站，提供个人博客模板免费资源下载的个人原创网站。" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'show_time/css/base.css' %}" rel="stylesheet">
+    <link href="{% static 'show_time/css/index.css' %}" rel="stylesheet">
+    <link href="{% static 'show_time/css/m.css' %}" rel="stylesheet">
+    <script src="{% static 'show_time/js/jquery.min.js' %}" ></script>
+    <script src="{% static 'show_time/js/jquery.easyfader.min.js' %}"></script>
+    <script src="{% static 'show_time/js/hc-sticky.js' %}"></script>
+    <script src="{% static 'show_time/js/comm.js' %}"></script>
+    <script src="{% static 'show_time/js/scrollReveal.js' %}"></script>
+    <script src="{% static 'show_time/js/angular.min.1.4.6.js' %}"></script>
+    <script src="{% static 'show_time/js/ng-infinite-scroll.js' %}"></script>
+</head>
+<body>
+    <header class="header-navigation" id="header">
+      <nav>
+        <div class="logo"><a href="http://www.yangqq.com">青于蓝</a></div>
+        <h2 id="mnavh"><span class="navicon"></span></h2>
+        <ul id="starlist">
+          <li><a href="index.html">网站首页</a></li>
+          <li><a href="about.html">关于我</a></li>
+          <li><a href="share.html">模板分享</a></li>
+          <li><a href="list.html">博客日记</a></li>
+          <li class="menu"><a href="fengmian.html">学无止境</a>
+            <ul class="sub">
+              <li><a href="#">慢生活</a></li>
+              <li><a href="#">美文欣赏</a></li>
+            </ul>
+          </li>
+          <li><a href="time.html">时间轴</a></li>
+        </ul>
+        <div class="searchbox">
+        <div id="search_bar" class="search_bar">
+          <form  id="searchform" action="[!--news.url--]e/search/index.php" method="post" name="searchform">
+            <input class="input" placeholder="想搜点什么呢.." type="text" name="keyboard" id="keyboard">
+            <input type="hidden" name="show" value="title" />
+            <input type="hidden" name="tempid" value="1" />
+            <input type="hidden" name="tbname" value="news">
+            <input type="hidden" name="Submit" value="搜索" />
+            <p class="search_ico"> <span></span></p>
+          </form>
+         </div>
+        </div>
+      </nav>
+    </header>
+<article ng-controller="blogPost">
+  <!-- 轮播图开始 -->
+  <div class="banner">
+    <div id="banner" class="fader">
+      <li class="slide" ><a href="/" target="_blank"><img src="{% static 'show_time/images/1.jpg' %}"><span class="imginfo">别让这些闹心的套路，毁了你的网页设计!</span></a></li>
+      <li class="slide" ><a href="/" target="_blank"><img src="{% static 'show_time/images/2.jpg' %}"><span class="imginfo">网页中图片属性固定宽度，如何用js改变大小</span></a></li>
+      <li class="slide" ><a href="/" target="_blank"><img src="{% static 'show_time/images/3.jpg' %}"><span class="imginfo">个人博客，属于我的小世界！</span></a></li>
+      <div class="fader_controls">
+        <div class="page prev" data-target="prev">&lsaquo;</div>
+        <div class="page next" data-target="next">&rsaquo;</div>
+        <ul class="pager_list">
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- 轮播图结束 -->
+
+  <!-- 公告开始 -->
+  <div class="toppic">
+    <li> <a href="/" target="_blank"> <i><img src="{% static 'show_time/images/1.jpg' %}"></i>
+      <h2>安静地做一个爱设计的女子</h2>
+      <span>学无止境</span> </a> </li>
+    <li> <a href="/" target="_blank"> <i><img src="{% static 'show_time/images/2.jpg' %}"></i>
+      <h2>个人博客，属于我的小世界！</h2>
+      <span>学无止境</span> </a> </li>
+  </div>
+  <!-- 公告结束 -->
+
+  <!-- 文章开始 -->
+  <main>
+    <div class="blogtab">
+        <ul id="blogtab">
+            <li class="current">最新文章</li>
+            <li><a href="list.html">心得笔记</a></li>
+            <li><a href="list.html">CSS3|Html5</a></li>
+            <li><a href="list.html">网站建设</a></li>
+            <li><a href="list.html">文字标签</a></li>
+            <li><a href="list.html">文字广告</a></li>
+        </ul>
+    </div>
+    <div class="blogs"  data-scroll-reveal="enter bottom over 1s" ng-repeat="i in postList" >
+      <h3 class="blogtitle"><a href="/" target="_blank" ng-bind="i.title"></a></h3>
+      <p class="blogtext" ng-bind="i.body"></p>
+      <div class="bloginfo">
+        <ul>
+          <li class="author"><a href="/" ng-bind="i.author"></a></li>
+          <li class="timer" ng-bind="i.updated"></li>
+        </ul>
+      </div>
+    </div>
+
+  </main>
+  <!-- 博客文章结束 -->
+
+  <!-- 侧边栏开始 -->
+  <aside class="r_box" >
+      <div class="about_me">
+        <h2>博主简介</h2>
+        <ul>
+          <i><img src="{% static 'show_time/images/4.jpg' %}"></i>
+          <p><b>杨青</b>，一个80后草根女站长！09年入行。一直潜心研究web前端技术，一边工作一边积累经验，分享一些个人博客模板，以及SEO优化等心得。</p>
+        </ul>
+      </div>
+      <div class="wdxc">
+        <h2>图片精选</h2>
+        <ul>
+          <li><a href="/"><img src="{% static 'show_time/images/7.jpg' %}"></a></li>
+          <li><a href="/"><img src="{% static 'show_time/images/8.jpg' %}"></a></li>
+        </ul>
+      </div>
+      <div class="fenlei">
+        <h2>文章分类</h2>
+        <ul>
+          <li><a href="/">学无止境（33）</a></li>
+          <li><a href="/">日记（19）</a></li>
+          <li><a href="/">慢生活（520）</a></li>
+          <li><a href="/">美文欣赏（40）</a></li>
+        </ul>
+      </div>
+      <div class="tuijian">
+        <h2 id="tab"><a href="#"class="current">活动公告</a><a href="#">点击排行</a><a href="#">站长推荐</a></h2>
+        
+     <div id="content">
+        <ul style="display:block;">
+          <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
+          <li><a href="/">【活动作品】柠檬绿兔小白个人博客模板</a></li>
+        </ul>
+                <ul>
+          <li><a href="/">你是什么人便会遇上什么人</a></li>
+          <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
+        </ul>
+        <ul>
+          <li><a href="/">个人博客，我为什么要用帝国cms？</a></li>
+          <li><a href="/">D设计师博客-一个热爱生活的设计师</a></li>
+        </ul>
+       </div>
+      </div>
+      <div class="guanzhu">
+        <h2>关注我 么么哒</h2>
+        <ul>
+          <img src="{% static 'show_time/images/wx.jpg' %}">
+        </ul>
+      </div>
+
+  </aside>
+  <!-- 侧边栏结束 -->
+</article>
+<footer>
+  <p>Design by <a href="http://www.yangqq.com" target="_blank">杨青个人博客</a> <a href="/">蜀ICP备11002373号-1</a><a href="/" class="links">友情链接</a></p>
+</footer>
+<a href="#" class="cd-top">Top</a>
+<script>
+    var myApp = angular.module('blogHomeApp', []);
+    myApp.controller('blogPost', ['$scope','$http',function($scope,$http){
+        $scope.perpage = 10;
+        $scope.curr_page = 0;
+        $http({
+            method: "GET",
+            url: "{% url 'show_time:article_list' %}",
+            params: {
+                'perpage': $scope.perpage,
+                'curr_page': $scope.curr_page
+            }
+        }).success(function (data) {
+            if (data.status_code === 200) {
+                $scope.postList = data.data;
+
+            } else {
+                $scope.postList = [];
+            }
+        }).error(function (data) {
+            alert('系统错误')
+        });
+
+    }]);
+
+
+</script>
+</body>
+</html>

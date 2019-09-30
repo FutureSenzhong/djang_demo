@@ -26,4 +26,7 @@ urlpatterns = [
 
     # 文章管理
     path('article/', include('article.urls', namespace='article')),
+
+    # show_time
+    path('show_time/', include('show_time.urls', namespace='show_time')),
 ]
