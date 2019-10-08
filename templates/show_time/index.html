@@ -91,22 +91,20 @@
             <li><a href="list.html">文字广告</a></li>
         </ul>
     </div>
-    <div infinite-scroll="postdata()">
-        <!-- data-scroll-reveal="enter bottom over 1s" -->
-        <div class="blogs" ng-repeat="i in postList track by i.id">
-          <h3 class="blogtitle"><a href="/" target="_blank" ng-bind="i.title"></a></h3>
-            <span class="blogpic"><a href="/" title=""><img src="{% static 'show_time/images/2.jpg'%}" alt=""></a></span>
-          <p class="blogtext" ng-bind="i.body"></p>
-          <div class="bloginfo">
-            <ul>
-              <li class="author"><a href="/" ng-bind="i.author"></a></li>
-              <li class="lmname"><a href="/">学无止境</a></li>
-              <li class="timer" ng-bind="i.updated"></li>
-              <li class="view"><span>34567</span>已阅读</li>
-              <li class="like">9999</li>
-            </ul>
-          </div>
-        </div>
+
+    <div class="blogs" ng-repeat="i in postList track by i.id" >
+      <h3 class="blogtitle"><a href="/" target="_blank" ng-bind="i.title"></a></h3>
+        <span class="blogpic"><a href="/" title=""><img src="{% static 'show_time/images/2.jpg'%}" alt=""></a></span>
+      <p class="blogtext" ng-bind="i.body"></p>
+      <div class="bloginfo">
+        <ul>
+          <li class="author"><a href="/" ng-bind="i.author"></a></li>
+          <li class="lmname"><a href="/">学无止境</a></li>
+          <li class="timer" ng-bind="i.updated"></li>
+          <li class="view"><span>34567</span>已阅读</li>
+          <li class="like">9999</li>
+        </ul>
+      </div>
     </div>
 
   </main>
@@ -201,13 +199,33 @@
                 }).error(function (data) {
                     layer.msg('系统错误')
                 });
-                $scope.curr_page += 1;
 
             }else {
                 layer.msg('没有更多的数据了')
 
             }
         };
+        //当 DOM（document object model 文档对象模型）加载完毕且页面完全加载（包括图像）时发生 ready 事件。
+        $(document).ready(function () {
+            //获取默认的数据列表
+            $scope.postdata();
+            //页面自增
+            $scope.curr_page++;
+            //监听滚动条
+            $(document).scroll(function() {
+                var scroH = $(document).scrollTop();  //滚动高度
+                var viewH = $(window).height();  //可见高度
+                var contentH = $(document).height();  //内容高度
+                if((contentH-viewH)===scroH){
+                    $scope.postdata();
+                    $scope.curr_page++;
+                    console.log($scope.curr_page);
+                }
+                 
+
+            });
+        })
+
 
     }]);
 
