@@ -22,7 +22,7 @@ def index(request):
 
 
 def article_list(request):
-    per_page = int(request.GET.get('per_page', 10))
+    per_page = int(request.GET.get('per_page', 5))
     curr_page = int(request.GET.get('curr_page', 1))
     # hello django
     # return HttpResponse('Hello Django')
