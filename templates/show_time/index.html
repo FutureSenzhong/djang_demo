@@ -177,8 +177,6 @@
         $scope.loading=false;
         $scope.postUrl = "{% url 'show_time:article_list' %}";
 
-        //当 DOM（document object model 文档对象模型）加载完毕且页面完全加载（包括图像）时发生 ready 事件。
-
         var postdata=function () {
             if ($scope.loading) return;
             $http({
