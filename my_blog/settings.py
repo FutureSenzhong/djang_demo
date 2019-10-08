@@ -25,7 +25,7 @@ SECRET_KEY = 'ora9^@@(9r_ejuc5oxu8(2$+w%fb=e)b@22la3p0n=6ul^3$r$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
