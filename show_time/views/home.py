@@ -29,16 +29,23 @@ def article_list(request):
 
     # 获取指定页的数据
     articles = ArticlePost.objects.all()[curr_page*per_page:(curr_page+1)*per_page]
+
     # 分页
     # 总数量
     total = ArticlePost.objects.count()
-    # 序列化
-    json_data = PostSerializers(articles, many=True)
-    # 数据组合成json传递给templates模板使用
-    data = {'data': json_data.data, 'total': total, 'status_code': 200}
 
-    # 渲染模板文件展示数据
-    return HttpResponse(json.dumps(data))
+    # 判断是否查询到数据
+    if articles:
+        # 序列化
+        json_data = PostSerializers(articles, many=True)
+        # 数据组合成json传递给templates模板使用
+        data = {'data': json_data.data, 'total': total, 'status_code': 200}
+
+        # 渲染模板文件展示数据
+        return HttpResponse(json.dumps(data))
+    else:
+        data = {'data': '', 'total': total, 'status_code': 404}
+        return HttpResponse(json.dumps(data))
 
 
 # 文章详情
