@@ -178,49 +178,49 @@
         $scope.postUrl = "{% url 'show_time:article_list' %}";
 
         //当 DOM（document object model 文档对象模型）加载完毕且页面完全加载（包括图像）时发生 ready 事件。
-        $(document).ready(function () {
-            var postdata=function () {
-                if ($scope.loading) return;
-                $http({
-                    method: "GET",
-                    url: $scope.postUrl,
-                    params: {
-                        'perpage': $scope.perpage,
-                        'curr_page': $scope.curr_page
-                    }
-                }).success(function (data) {
-                    if (data.status_code === 200) {
-                        var articleList = data.data;
-                        for (var i = 0; i < articleList.length; i++) {
-                            $scope.postList.push(articleList[i]);
-                        }
-                    }
-                    if (data.status_code === 404) {
-                        $scope.loading = true;
-                        layer.msg('更多的精神食粮还在酝酿中，喜欢我就请关注我吧！')
-                    }
-                    console.log($scope.postList)
-                }).error(function (data) {
-                    layer.msg('系统错误')
-                });
-                $scope.curr_page++;
-            };
-            postdata();
-            //监听滚动条
-            $(window).scroll(function() {
-                var scroH = $(this).scrollTop();  //滚动高度
-                var viewH = $(this).height();  //可见高度
-                var contentH = $(document).height();  //内容高度
-                this.onload(function () {
 
-                })
-                //判断滚动条是否到底
-                if(viewH + scroH === contentH){
-                    postdata();
-                    console.log($scope.curr_page);
+        var postdata=function () {
+            if ($scope.loading) return;
+            $http({
+                method: "GET",
+                url: $scope.postUrl,
+                params: {
+                    'perpage': $scope.perpage,
+                    'curr_page': $scope.curr_page
                 }
-            });
-        });
+            }).success(function (data) {
+                if (data.status_code === 200) {
+                    var articleList = data.data;
+                    for (var i = 0; i < articleList.length; i++) {
+                        $scope.postList.push(articleList[i]);
+                    }
+                }
+                if (data.status_code === 404) {
+                    $scope.loading = true;
+                    layer.msg('更多的精神食粮还在酝酿中，喜欢我就请关注我吧！')
+                }
+                console.log($scope.postList)
+            }).error(function (data) {
+                layer.msg('系统错误')
+            });
+            $scope.curr_page++;
+        };
+
+        //获取第一页数据
+        postdata();
+
+        //监听滚动条
+        $(window).scroll(function() {
+            var scroH = $(this).scrollTop();  //滚动高度
+            var viewH = $(this).height();  //可见高度
+            var contentH = $(document).height();  //内容高度
+            //判断滚动条是否到底
+            if(viewH + scroH === contentH){
+                postdata();
+                console.log($scope.curr_page);
+            }
+        });
+
 
 
     }]);
