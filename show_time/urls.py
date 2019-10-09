@@ -24,7 +24,12 @@ app_name = 'show_time'
 urlpatterns = [
     # 首页
     path('', home.index, name='index'),
+
+    # 文章列表
     path('article-list/', home.article_list, name='article_list'),
+
+    # 文章详情页面
+    path('article-detail/<int:aid>/', home.post_detail, name='article_list_detail'),
 
     # 关于我
     path('about/', about.about, name='about'),

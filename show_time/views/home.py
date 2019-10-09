@@ -23,7 +23,7 @@ def index(request):
 
 def article_list(request):
     per_page = int(request.GET.get('per_page', 5))
-    curr_page = int(request.GET.get('curr_page', 1))
+    curr_page = int(request.GET.get('curr_page', 0))
     # hello django
     # return HttpResponse('Hello Django')
 
@@ -59,9 +59,9 @@ def article_list(request):
 
 
 # 使用markdown编辑插件显示有格式的文章详情页面
-def article_detail(request, article_id):
+def post_detail(request, aid):
     # 取出相应的文章
-    article = ArticlePost.objects.get(id=article_id)
+    article = ArticlePost.objects.get(id=aid)
 
     # markdown格式的文章内容
     article.body = markdown.markdown(article.body, extensions=MARKDOWN_EXTENSIONS)
