@@ -1,0 +1,72 @@
+{% extends 'show_time_base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+    <meta charset="utf-8">
+    <title>首页_梦想开始的地方 - 一个站在巨人肩膀的的技术员个人博客网站</title>
+    <meta name="keywords" content="个人博客,杨青个人博客,个人博客模板,杨青" />
+    <meta name="description" content="杨青个人博客，是一个站在web前端设计之路的女程序员个人网站，提供个人博客模板免费资源下载的个人原创网站。" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'show_time/css/base.css' %}" rel="stylesheet">
+    <link href="{% static 'show_time/css/index.css' %}" rel="stylesheet">
+    <link href="{% static 'show_time/css/about.css' %}" rel="stylesheet">
+    <link href="{% static 'show_time/css/info.css' %}" rel="stylesheet">
+    <link href="{% static 'show_time/css/infopic.css' %}" rel="stylesheet">
+    <link href="{% static 'show_time/css/m.css' %}" rel="stylesheet">
+    <link href="{% static 'show_time/css/share.css' %}" rel="stylesheet">
+    <link href="{% static 'show_time/css/time.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static '/favicon.ico' %}" type="image/x-icon" />
+    <script src="{% static 'show_time/js/jquery.min.js' %}" ></script>
+    <script src="{% static 'show_time/js/jquery.easyfader.min.js' %}"></script>
+    <script src="{% static 'show_time/js/hc-sticky.js' %}"></script>
+    <script src="{% static 'show_time/js/comm.js' %}"></script>
+    <script src="{% static 'show_time/js/scrollReveal.js' %}"></script>
+    <script src="{% static 'show_time/js/angular.min.1.4.6.js' %}"></script>
+    <script src="{% static 'show_time/js/ng-infinite-scroll.js' %}"></script>
+    <script src="{% static 'layer/layer.js' %}"></script>
+{% endblock %}
+
+
+{% block nav %}
+    <nav>
+        <div class="logo">
+            <a href="http://www.yangqq.com">青于蓝</a>
+        </div>
+            <h2 id="mnavh"><span class="navicon"></span></h2>
+            <ul id="starlist">
+              <li><a href="{% url 'article:index' %}">网站首页</a></li>
+              <li><a href="{% url 'article:about' %}">关于我</a></li>
+              <li><a href="{% url 'article:index' %}">模板分享</a></li>
+              <li><a href="{% url 'article:index' %}">博客日记</a></li>
+              <li class="menu"><a href="{% url 'article:study' %}">学无止境</a>
+                <ul class="sub">
+                  <li><a href="{% url 'article:life' %}">慢生活</a></li>
+                  <li><a href="{% url 'article:index' %}">美文欣赏</a></li>
+                </ul>
+              </li>
+              <li><a href="{% url 'article:time' %}">时间轴</a></li>
+            </ul>
+            <div class="searchbox">
+                <div id="search_bar" class="search_bar">
+                  <form  id="searchform" action="#" method="post" name="searchform">
+                    <input class="input" placeholder="想搜点什么呢.." type="text" name="keyboard" id="keyboard">
+                    <input type="hidden" name="show" value="title" />
+                    <input type="hidden" name="tempid" value="1" />
+                    <input type="hidden" name="tbname" value="news">
+                    <input type="hidden" name="Submit" value="搜索" />
+                    <p class="search_ico"> <span></span></p>
+                  </form>
+                 </div>
+            </div>
+    </nav>
+{% endblock %}
+
+
+{% block footer %}
+<footer>
+<p><a href="http://www.pyeden.com" target="_blank">邓森中的个人博客  ||</a> <a href="/">蜀ICP备11002373号-1  ||</a><a href="http://www.baidu.com" target="_blank" class="links">友情链接</a></p>
+</footer>
+<a href="#" class="cd-top">Top</a>
+{% endblock %}
+
+

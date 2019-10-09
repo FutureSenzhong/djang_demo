@@ -1,47 +1,108 @@
-<!-- extends表明此页面继承自 base.html 文件 -->
-{% extends "base.html" %}
+{% extends 'show_time.html' %}
 {% load staticfiles %}
 
-<!-- 写入 base.html 中定义的 title -->
-{% block title %}
-    文章详情
-{% endblock title %}
 
-<!-- 写入 base.html 中定义的 content -->
-{% block content %}
-
-<!-- 文章详情 -->
-<div class="container">
-    <div class="row">
-        <!-- 标题及作者 -->
-        <h1 class="col-12 mt-4 mb-4">{{ article.title }}</h1>
-        <div class="col-12 alert alert-success">作者：{{ article.author }}
-            <!--使用post表单删除，并且验证csrf—token防止跨域请求伪造攻击 -->
-            <a href="#" onclick="confirm_safe_delete()">删除文章</a>
-            <a href="{% url "article:article_update" article.id %}" >修改文章</a>
-            <!-- 新增一个隐藏的表单 -->
-            <form
-                  style="display:none;"
-                  id="safe_delete"
-                  action="{% url 'article:article_safe_delete' article.id %}"
-                  method="POST"
-                  >
-                {% csrf_token %}
-                <button type="submit">发送</button>
-            </form>
+{% block article %}
+<article >
+    <main>
+    <div class="infosbox">
+        <div class="newsview">
+          <h3 class="news_title">个人博客，属于我的小世界！</h3>
+          <div class="bloginfo">
+            <ul>
+              <li class="author">作者：<a href="/">{{ data.author }}</a></li>
+              <li class="lmname"><a href="/">学无止境</a></li>
+              <li class="timer">时间：{{ data.created | date:"Y-m-d H:i:s" }}</li>
+              <li class="view">4567人已阅读</li>
+            </ul>
+          </div>
+          <div class="tags"><a href="/" target="_blank">个人博客</a> &nbsp; <a href="/" target="_blank">小世界</a></div>
+          <div class="news_about"><strong>简介</strong>个人博客，用来做什么？我刚开始就把它当做一个我吐槽心情的地方，也就相当于一个网络记事本，写上一些关于自己生活工作中的小情小事，也会放上一些照片，音乐。每天工作回家后就能访问自己的网站，一边听着音乐，一边写写文章。</div>
+          <div class="news_con"> {{ data.body }}
+        &nbsp; </div>
         </div>
-        <!-- 文章正文 -->
-        <div class="col-12">
-            <!--Django出于安全的考虑，会将输出的HTML代码进行转义，这使得article.body中渲染的HTML文本无法正常显示。
-                管道符|是Django中过滤器的写法，而|safe就类似给article.body贴了一个标签，表示这一段字符不需要进行转义了。
-             -->
-            <p>{{ article.body | safe }}</p>
+        <div class="share">
+          <p class="diggit"><a href="JavaScript:makeRequest('/e/public/digg/?classid=3&amp;id=19&amp;dotop=1&amp;doajax=1&amp;ajaxarea=diggnum','EchoReturnedText','GET','');"> 很赞哦！ </a>(<b id="diggnum"><script type="text/javascript" src="/e/public/ViewClick/?classid=2&id=20&down=5"></script>13</b>)</p>
+        </div>
+        <div class="nextinfo">
+          <p>上一篇：<a href="/news/life/2018-03-13/804.html">作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</a></p>
+          <p>下一篇：<a href="/news/life/">返回列表</a></p>
+        </div>
+        <div class="news_pl">
+          <h2>文章评论</h2>
+          <ul>
+            <div class="gbko"> </div>
+          </ul>
         </div>
     </div>
-</div>
+    </main>
+    <aside class="r_box" >
+      <div class="wdxc">
+        <h2>图文精选</h2>
+        <ul>
+          <li><a href="/"><img src="images/7.jpg"></a></li>
+          <li><a href="/"><img src="images/8.jpg"></a></li>
+          <li><a href="/"><img src="images/9.jpg"></a></li>
+          <li><a href="/"><img src="images/10.jpg"></a></li>
+          <li><a href="/"><img src="images/11.jpg"></a></li>
+          <li><a href="/"><img src="images/12.jpg"></a></li>
+        </ul>
+      </div>
+       <div class="fenlei">
+        <h2>文章分类</h2>
+        <ul>
+          <li><a href="/">学无止境（33）</a></li>
+          <li><a href="/">日记（19）</a></li>
+          <li><a href="/">慢生活（520）</a></li>
+          <li><a href="/">美文欣赏（40）</a></li>
+        </ul>
+      </div>
+      <div class="cloud">
+        <h2>标签云</h2>
+        <ul>
+          <a href="/">陌上花开</a> <a href="/">校园生活</a> <a href="/">html5</a> <a href="/">SumSung</a> <a href="/">青春</a> <a href="/">温暖</a> <a href="/">阳光</a> <a href="/">三星</a><a href="/">索尼</a> <a href="/">华维荣耀</a> <a href="/">三星</a> <a href="/">索尼</a>
+        </ul>
+      </div>
+      <div class="tuijian">
+        <h2 id="tab"><a href="#"class="current">点击排行</a><a href="#">站长推荐</a></h2>
+        <div id="content">
+          <ul style="display:block;">
+            <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
+            <li><a href="/">【活动作品】柠檬绿兔小白个人博客模板</a></li>
+            <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
+            <li><a href="/">2014年度优秀个人博客评选活动</a></li>
+            <li><a href="/">你是什么人便会遇上什么人</a></li>
+            <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
+            <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
+            <li><a href="/">个人博客模板《绅士》后台管理</a></li>
+          </ul>
+          <ul>
+            <li><a href="/">个人博客，我为什么要用帝国cms？</a></li>
+            <li><a href="/">D设计师博客-一个热爱生活的设计师</a></li>
+            <li><a href="/">东轩博客，我看到了你的坚持！</a></li>
+            <li><a href="/">程序员创业，就得“豁得出去”！</a></li>
+            <li><a href="/">张建华 一个90后年轻站长！我们是对手亦是朋友！</a></li>
+            <li><a href="/">《奋斗电商》看知名微商如何做博客引流？</a></li>
+            <li><a href="/">《寻之旅》一个关于旅游，游记的个人博客</a></li>
+            <li><a href="/">【匆匆那些年】总结个人博客经历的这四年</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="guanzhu">
+        <h2>关注我 么么哒</h2>
+        <ul>
+          <img src="images/wx.jpg">
+        </ul>
+      </div>
 
+  </aside>
+</article>
+{% endblock %}
+
+
+{% block script %}
 <script>
-      // 删除文章的函数
+     // 删除文章的函数
     function confirm_safe_delete() {
         // 调用layer弹窗组件
         layer.open({
@@ -57,8 +118,6 @@
         })
     }
 
-
 </script>
+{% endblock %}
 
-
-{% endblock content %}

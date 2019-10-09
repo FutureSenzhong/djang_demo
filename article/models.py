@@ -42,3 +42,6 @@ class ArticlePost(models.Model):
     def __str__(self):
         # return self.title 将文章标题返回
         return self.title
+
+    def get_absolute_url(self):
+        return 'article/article-detail/%d/' % self.id

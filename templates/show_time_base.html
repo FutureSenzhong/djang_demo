@@ -1,0 +1,24 @@
+<!doctype html>
+<html ng-app="blogHomeApp">
+<head>
+    {% block head %}
+    {% endblock head %}
+<body>
+<header class="header-navigation" id="header">
+    {% block nav %}
+    {% endblock nav %}
+</header>
+
+
+    {% block article %}
+    {% endblock article %}
+
+    {% block footer %}
+    {% endblock footer %}
+<a href="#" class="cd-top">Top</a>
+
+    {% block script %}
+    {% endblock %}
+
+</body>
+</html>

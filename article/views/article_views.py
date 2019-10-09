@@ -2,7 +2,6 @@ import json
 
 import markdown
 from django.contrib.auth.models import User
-from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -12,13 +11,8 @@ from django.shortcuts import render, redirect
 # 编写第一个Hello Django视图程序
 from article.forms import ArticlePostForm
 from article.models import ArticlePost
+from article.serializers.article_serializers import PostSerializers
 from my_blog.settings import MARKDOWN_EXTENSIONS
-from show_time.serializers.article_serializers import PostSerializers
-
-
-def index(request):
-    if request.method == 'GET':
-        return render(request, 'show_time/index.html')
 
 
 def article_list(request):
@@ -28,7 +22,7 @@ def article_list(request):
     # return HttpResponse('Hello Django')
 
     # 获取指定页的数据
-    articles = ArticlePost.objects.all()[curr_page*per_page:(curr_page+1)*per_page]
+    articles = ArticlePost.objects.all()[curr_page * per_page:(curr_page + 1) * per_page]
 
     # 分页
     # 总数量
@@ -59,16 +53,16 @@ def article_list(request):
 
 
 # 使用markdown编辑插件显示有格式的文章详情页面
-def post_detail(request, aid):
+def article_detail(request, article_id):
     # 取出相应的文章
-    article = ArticlePost.objects.get(id=aid)
+    article = ArticlePost.objects.get(id=article_id)
 
     # markdown格式的文章内容
     article.body = markdown.markdown(article.body, extensions=MARKDOWN_EXTENSIONS)
+
     # 需要传递给模板的对象
-    data = {'article': article}
     # 载入模板，并返回context对象
-    return render(request, 'article/detail.html', data)
+    return render(request, 'article/detail.html', {'data': article})
 
 
 # 写文章的视图
@@ -91,8 +85,7 @@ def article_create(request):
             return redirect("article:article_list")
         # 如果数据不合法，返回错误信息
         else:
-            # return HttpResponse("表单内容有误，请重新填写。")
-            return HttpResponse("")
+            return HttpResponse("表单内容有误，请重新填写。")
     # 如果用户请求获取数据
     else:
         # 创建表单类实例
@@ -121,8 +114,7 @@ def article_safe_delete(request, article_id):
         article.delete()
         return redirect("article:article_list")
     else:
-        return HttpResponse("")
-        # return HttpResponse("仅允许post请求")
+        return HttpResponse("仅允许post请求")
 
 
 # 更新文章
@@ -150,8 +142,7 @@ def article_update(request, article_id):
             return redirect("article:article_detail", article_id=article_id)
         # 如果数据不合法，返回错误信息
         else:
-            # return HttpResponse("表单内容有误，请重新填写。")
-            return HttpResponse("")
+            return HttpResponse("表单内容有误，请重新填写。")
 
     # 如果用户 GET 请求获取数据
     else:

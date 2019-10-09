@@ -98,7 +98,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'article',
     'user',
-    'show_time',
     'rest_framework',
     'django_seed',
 ]
