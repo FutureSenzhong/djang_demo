@@ -11,6 +11,9 @@ from django.utils import timezone
 # 每当你修改了models.py文件，都需要用
 # python manage.py makemigrations生成迁移文件
 # python manage.py migrate将迁移应用到数据中
+from mdeditor.fields import MDTextField
+
+
 class ArticlePost(models.Model):
     # 作者
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -19,7 +22,7 @@ class ArticlePost(models.Model):
     title = models.CharField(max_length=100)
 
     # 正文
-    body = models.TextField()
+    body = MDTextField()
 
     # 创建时间
     created = models.DateTimeField(default=timezone.now)
