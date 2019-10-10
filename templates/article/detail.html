@@ -25,8 +25,8 @@
           <p class="diggit"><a href="JavaScript:makeRequest('/e/public/digg/?classid=3&amp;id=19&amp;dotop=1&amp;doajax=1&amp;ajaxarea=diggnum','EchoReturnedText','GET','');"> 很赞哦！ </a>(<b id="diggnum"><script type="text/javascript" src="/e/public/ViewClick/?classid=2&id=20&down=5"></script>13</b>)</p>
         </div>
         <div class="nextinfo">
-          <p>上一篇：<a href="/news/life/2018-03-13/804.html">作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</a></p>
-          <p>下一篇：<a href="/news/life/">返回列表</a></p>
+          <p>上一篇：<a href="/article/article-detail/{{ last_article.id }}">{{ last_article.title }}</a></p>
+          <p>下一篇：<a href="/article/article-detail/{{ next_article.id }}">{{ next_article.title }}</a></p>
         </div>
         <div class="news_pl">
           <h2>文章评论</h2>

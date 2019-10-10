@@ -55,14 +55,29 @@ def article_list(request):
 # 使用markdown编辑插件显示有格式的文章详情页面
 def article_detail(request, article_id):
     # 取出相应的文章
-    article = ArticlePost.objects.get(id=article_id)
+    article = ArticlePost.objects.filter(id=article_id).first()
 
     # markdown格式的文章内容
     article.body = markdown.markdown(article.body, extensions=MARKDOWN_EXTENSIONS)
 
+    # 上一篇
+    last_article = ArticlePost.objects.filter(id=(article_id+1)).first()
+    if last_article:
+        # markdown格式的文章内容
+        last_article.body = markdown.markdown(last_article.body, extensions=MARKDOWN_EXTENSIONS)
+
+    # 下一篇
+    next_article = ArticlePost.objects.filter(id=(article_id-1)).first()
+    if next_article:
+        # markdown格式的文章内容
+        next_article.body = markdown.markdown(next_article.body, extensions=MARKDOWN_EXTENSIONS)
+
     # 需要传递给模板的对象
     # 载入模板，并返回context对象
-    return render(request, 'article/detail.html', {'data': article})
+    return render(
+        request,
+        'article/detail.html',
+        {'data': article, 'last_article': last_article, 'next_article': next_article})
 
 
 # 写文章的视图
