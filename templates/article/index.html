@@ -46,7 +46,7 @@
     <div infinite-scroll='post.nextPage()' infinite-scroll-disabled='post.busy' infinite-scroll-distance='1'>
         <div class="blogs" ng-repeat="i in post.items" >
           <h3 class="blogtitle"><a ng-bind="i.title"></a></h3>
-            <span class="blogpic"><a  title=""><img src="/static/editor/avata_20191010161441600724.jpg" alt=""></a></span>
+            <span class="blogpic"><a  title=""><img src="[[ i.image ]]" alt="封面"></a></span>
           <p class="blogtext" ng-bind="i.body"></p>
           <div class="bloginfo">
             <ul>

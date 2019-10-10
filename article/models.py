@@ -24,6 +24,12 @@ class ArticlePost(models.Model):
     # 正文
     body = MDTextField()
 
+    # 单个图片
+    image = models.ImageField()
+
+    # 批量上传的图片
+    batch_image = models.M
+
     # 创建时间
     created = models.DateTimeField(default=timezone.now)
 
