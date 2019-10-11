@@ -30,10 +30,22 @@ def article_list(request):
 
     # 判断是否查询到数据
     if articles:
+        new_article = []
+        for item in articles:
+            image_total = 0
+            if item.image:
+                image_total += 1
+            if item.image2:
+                image_total += 1
+            if item.image3:
+                image_total += 1
+            item.image_total = image_total
+            new_article.append(item)
         # 序列化
-        json_data = PostSerializers(articles, many=True)
+        json_data = PostSerializers(new_article, many=True)
+        json_article = json_data.data
         # 数据组合成json传递给templates模板使用
-        data = {'data': json_data.data, 'total': total, 'status_code': 200}
+        data = {'data': json_article, 'total': total, 'status_code': 200}
 
         # 渲染模板文件展示数据
         return HttpResponse(json.dumps(data))

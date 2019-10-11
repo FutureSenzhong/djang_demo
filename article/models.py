@@ -19,16 +19,17 @@ class ArticlePost(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     # 标题
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=255)
 
     # 正文
     body = MDTextField()
 
     # 单个图片
-    image = models.ImageField()
+    image = models.ImageField(null=True, blank=True)
 
     # 批量上传的图片
-    batch_image = models.M
+    image2 = models.ImageField(null=True, blank=True)
+    image3 = models.ImageField(null=True, blank=True)
 
     # 创建时间
     created = models.DateTimeField(default=timezone.now)

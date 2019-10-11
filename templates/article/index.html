@@ -46,7 +46,22 @@
     <div infinite-scroll='post.nextPage()' infinite-scroll-disabled='post.busy' infinite-scroll-distance='1'>
         <div class="blogs" ng-repeat="i in post.items" >
           <h3 class="blogtitle"><a ng-bind="i.title"></a></h3>
-            <span class="blogpic"><a  title=""><img src="[[ i.image ]]" alt="封面"></a></span>
+            <span ng-switch="i.image_total">
+                <!-- 文章列表封面样式一 -->
+                <span ng-switch-when="1" class="blogpic">
+                    <a href="/article/article-detail/[[i.id]]" title="">
+                        <img src="[[ i.image ]]" alt="封面"></a></span>
+                <!-- 文章列表封面样式二 -->
+                <span ng-switch-when="3" class="bplist">
+                    <a href="/article/article-detail/[[i.id]]" title="">
+                      <li><img src="[[ i.image ]]" alt=""></li>
+                      <li><img src="[[ i.image2 ]]" alt=""></li>
+                      <li><img src="[[ i.image3 ]]" alt=""></li>
+                    </a>
+                </span>
+                <!-- 文章列表封面样式三 -->
+                <span ng-switch-default="0" hidden class="bigpic"></span>
+            </span>
           <p class="blogtext" ng-bind="i.body"></p>
           <div class="bloginfo">
             <ul>

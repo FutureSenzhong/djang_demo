@@ -6,6 +6,7 @@ from article.models import ArticlePost
 class PostSerializers(serializers.ModelSerializer):
     # 重新设定时间格式
     detectionTime = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", required=False, read_only=True)
+    image_total = serializers.IntegerField()
 
     class Meta:
         model = ArticlePost
