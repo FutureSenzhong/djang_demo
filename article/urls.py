@@ -25,6 +25,7 @@ app_name = 'article'
 urlpatterns = [
     # 首页
     path('index/', index_views.index, name='index'),
+    path('banner/', index_views.get_banner, name='banner'),
 
     # 关于我
     path('about/', about_views.about, name='about'),

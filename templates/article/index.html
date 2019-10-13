@@ -3,19 +3,25 @@
 
 
 {% block article %}
+{% verbatim %}
 <article ng-app="blogHomeApp" ng-controller="blogPost">
   <!-- 轮播图开始 -->
-  <div class="banner">
-    <div id="banner" class="fader">
-      <li class="slide" ><a href="#" target="_blank"><img src="{% static 'show_time/images/1.jpg' %}"><span class="imginfo">别让这些闹心的套路，毁了你的人生路!</span></a></li>
-      <li class="slide" ><a href="#" target="_blank"><img src="{% static 'show_time/images/2.jpg' %}"><span class="imginfo">别让这些闹心的套路，毁了你的人生路！</span></a></li>
-      <li class="slide" ><a href="#" target="_blank"><img src="{% static 'show_time/images/3.jpg' %}"><span class="imginfo">别让这些闹心的套路，毁了你的人生路！</span></a></li>
-      <div class="fader_controls">
-        <div class="page prev" data-target="prev">&lsaquo;</div>
-        <div class="page next" data-target="next">&rsaquo;</div>
-        <ul class="pager_list">
-        </ul>
-      </div>
+  <div class="banner" >
+    <div id="banner" class="fader" >
+          <li class="slide" ng-repeat="banner_image in banner_images" ng-model="banner_image.is_active">
+              <a href="#" target="_blank">
+                  <img src="{{ banner_image.img}}">
+                  <span class="imginfo">{{ banner_image.text_info }}</span>
+              </a>
+          </li>
+          <div class="fader_controls">
+            <div class="page prev" data-target="prev">&lsaquo;</div>
+            <div class="page next" data-target="next">&rsaquo;</div>
+            <ul class="pager_list" >
+                <li class="page" data-target="0">0</li>
+                <li class="page active" data-target="1">1</li>
+            </ul>
+          </div>
     </div>
   </div>
   <!-- 轮播图结束 -->
@@ -32,6 +38,7 @@
   <!-- 公告结束 -->
 
   <!-- 文章开始 -->
+
   <main>
     <div class="blogtab">
         <ul id="blogtab">
@@ -43,7 +50,6 @@
             <li><a href="list.html">文字广告</a></li>
         </ul>
     </div>
-    {% verbatim %}
     <div infinite-scroll='post.nextPage()' infinite-scroll-disabled='post.busy' infinite-scroll-distance='0'>
         <div class="blogs" ng-repeat="i in post.items" >
           <h3 class="blogtitle"><a ng-bind="i.title"></a></h3>
@@ -78,7 +84,6 @@
             </div>
         </div>
     </div>
-    {% endverbatim %}
   </main>
   <!-- 博客文章结束 -->
 
@@ -135,6 +140,7 @@
   </aside>
   <!-- 侧边栏结束 -->
 </article>
+{% endverbatim %}
 {% endblock %}
 
 
@@ -148,7 +154,14 @@
     myApp.controller('blogPost', ['$scope', '$http', 'Posts', function($scope, $http, Posts){
         $scope.post = new Posts();
         console.log($scope.post)
-
+        // 设置轮播图图片间隔
+        $scope.myInterval = 2000;
+        var banner_url = "{% url 'article:banner' %}"
+        $http.get(banner_url).success(function(data) {
+                if (data.status_code === 200) {
+                  $scope.banner_images = data.data;
+                }
+        })
 
     }]);
 
