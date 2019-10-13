@@ -25,6 +25,10 @@ class UserInfo(User):
     def __str__(self):
         return self.username
 
+    class Meta:
+        verbose_name = '用户信息'
+        verbose_name_plural = '用户信息'
+
 
 class Blog(models.Model):
     """
@@ -37,6 +41,10 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = '博客信息'
+        verbose_name_plural = '博客信息'
 
 
 class ArticlePost(models.Model):
@@ -52,9 +60,10 @@ class ArticlePost(models.Model):
     up_count = models.IntegerField(default=0, verbose_name='点赞数')
     down_count = models.IntegerField(default=0, verbose_name='踩数')
     image_count = models.IntegerField(default=0, verbose_name='封面图片数量')
-    category = models.ForeignKey(to='Category', to_field='id', on_delete=models.CASCADE)
+    category = models.ForeignKey(verbose_name='分类', to='Category', to_field='id', on_delete=models.CASCADE)
     # through参数可以指定用作中介的中间模型
-    tags = models.ManyToManyField(to="Tag", through='ArticleTag')
+    tags = models.ManyToManyField(verbose_name='标签', to="Tag", through='ArticleTag')
+    views = models.PositiveIntegerField(verbose_name='阅读量', default=12345)
     # 正文
     body = MDTextField(verbose_name='文章正文')
     # 封面图片
@@ -75,6 +84,8 @@ class ArticlePost(models.Model):
         # '-created' 表明数据应该以倒序排列
         # 保证了最新文章永远在最顶部位置
         ordering = ('-id',)
+        verbose_name = '博客文章'
+        verbose_name_plural = '博客文章'
 
     # 函数 __str__ 定义当调用对象的 str() 方法时的返回值内容
     def __str__(self):
@@ -90,10 +101,14 @@ class Category(models.Model):
     文章分类表
     """
     id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
-    title = models.CharField(verbose_name='分类标题', max_length=32)
+    title = models.CharField(verbose_name='分类名称', max_length=32)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = '文章分类'
+        verbose_name_plural = '文章分类'
 
 
 class Tag(models.Model):
@@ -105,6 +120,10 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = '文章标签'
+        verbose_name_plural = '文章标签'
 
 
 class ArticleTag(models.Model):
@@ -120,6 +139,8 @@ class ArticleTag(models.Model):
         unique_together = [
             ('article', 'tag'),
         ]
+        verbose_name = '文章分类关系'
+        verbose_name_plural = '文章分类关系'
 
     def __str__(self):
         return self.article.title + "---" + self.tag.title
@@ -130,8 +151,8 @@ class ArticleUpDown(models.Model):
     点赞表
     """
     id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
-    user = models.ForeignKey(to='UserInfo', to_field='id',null=True, on_delete=models.CASCADE)
-    article = models.ForeignKey(to="ArticlePost", to_field='id', null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(verbose_name='用户', to='UserInfo', to_field='id',null=True, on_delete=models.CASCADE)
+    article = models.ForeignKey(verbose_name='文章', to="ArticlePost", to_field='id', null=True, on_delete=models.CASCADE)
     is_up = models.BooleanField(default=True)
 
     class Meta:
@@ -139,6 +160,8 @@ class ArticleUpDown(models.Model):
         unique_together = [
             ('article', 'user'),
         ]
+        verbose_name = '点赞'
+        verbose_name_plural = '点赞'
 
 
 class Comment(models.Model):
@@ -155,28 +178,35 @@ class Comment(models.Model):
     def __str__(self):
         return self.content
 
+    class Meta:
+        verbose_name = '评论管理'
+        verbose_name_plural = '评论管理'
+
 
 class Banner(models.Model):
     """
     轮播图
     """
     id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
-    article = models.ForeignKey(verbose_name='评论文章', to='ArticlePost', to_field='id', on_delete=models.CASCADE)
-    user = models.ForeignKey(verbose_name='评论者', to='UserInfo', to_field='id', on_delete=models.CASCADE)
-    content = models.CharField(verbose_name='评论内容', max_length=255)
-    create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
-    parent_comment = models.ForeignKey(to='Comment', null=True, on_delete=models.CASCADE)
+    text_info = models.CharField(verbose_name='标题', max_length=50, default='')
+    img = models.ImageField(verbose_name='轮播图', upload_to='media/banner/')
+    link_url = models.URLField(verbose_name='图片链接', max_length=100)
+    is_active = models.BooleanField(verbose_name='是否是active', default=False)
 
     def __str__(self):
-        return self.content
+        return self.text_info
+
+    class Meta:
+        verbose_name = '轮播图'
+        verbose_name_plural = '轮播图'
 
 
 class Link(models.Model):
 
     """友情链接"""
     id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
-    name = models.CharField('链接名称', max_length=32)
-    linkurl = models.URLField('网址', max_length=255)
+    name = models.CharField(verbose_name='链接名称', max_length=32)
+    linkurl = models.URLField(verbose_name='网址', max_length=255)
 
     def __str__(self):
         return self.name
