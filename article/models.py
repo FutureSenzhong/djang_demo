@@ -18,33 +18,15 @@ class UserInfo(User):
     """
     用户信息
     """
-    telephone = models.CharField(max_length=11, null=True, unique=True, verbose_name='用户电话')
-    avatar = models.FileField(default="images/favicon.ico", verbose_name='用户头像')
-    blog = models.OneToOneField(to='Blog', to_field='id', null=True, on_delete=models.CASCADE)
+    avatar = models.FileField(upload_to='user/', verbose_name='用户头像')
+    info = models.CharField(max_length=255, verbose_name='用户介绍')
 
     def __str__(self):
         return self.username
 
     class Meta:
-        verbose_name = '用户信息'
-        verbose_name_plural = '用户信息'
-
-
-class Blog(models.Model):
-    """
-    博客信息
-    """
-    id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
-    title = models.CharField(verbose_name='个人博客标题', max_length=255)
-    site_name = models.CharField(verbose_name='站点名称', max_length=255)
-    theme = models.CharField(verbose_name='博客主题', max_length=255)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = '博客信息'
-        verbose_name_plural = '博客信息'
+        verbose_name = '用户管理'
+        verbose_name_plural = '用户管理'
 
 
 class ArticlePost(models.Model):
@@ -55,7 +37,7 @@ class ArticlePost(models.Model):
     id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
     author = models.ForeignKey(verbose_name='作者', to='UserInfo', to_field='id', on_delete=models.CASCADE)
     title = models.CharField(max_length=255, verbose_name='文章标题')
-    desc = models.CharField(max_length=255, verbose_name='文章描述')
+    desc = models.CharField(max_length=255, verbose_name='文章描述', null=True)
     comment_count = models.IntegerField(default=0, verbose_name='评论数量')
     up_count = models.IntegerField(default=0, verbose_name='点赞数')
     down_count = models.IntegerField(default=0, verbose_name='踩数')
@@ -151,7 +133,7 @@ class ArticleUpDown(models.Model):
     点赞表
     """
     id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
-    user = models.ForeignKey(verbose_name='用户', to='UserInfo', to_field='id',null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(verbose_name='用户', to='UserInfo', to_field='id', null=True, on_delete=models.CASCADE)
     article = models.ForeignKey(verbose_name='文章', to="ArticlePost", to_field='id', null=True, on_delete=models.CASCADE)
     is_up = models.BooleanField(default=True)
 
@@ -189,8 +171,8 @@ class Banner(models.Model):
     """
     id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
     text_info = models.CharField(verbose_name='标题', max_length=50, default='')
-    img = models.ImageField(verbose_name='轮播图', upload_to='media/banner/')
-    link_url = models.URLField(verbose_name='图片链接', max_length=100)
+    img = models.ImageField(verbose_name='轮播图', upload_to='banner/', null=True)
+    link_url = models.URLField(verbose_name='图片链接', max_length=100, null=True)
     is_active = models.BooleanField(verbose_name='是否是active', default=False)
 
     def __str__(self):
@@ -214,3 +196,21 @@ class Link(models.Model):
     class Meta:
         verbose_name = '友情链接'
         verbose_name_plural = '友情链接'
+
+
+class Photo(models.Model):
+    """
+    相册
+    """
+    id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
+    info = models.CharField(max_length=255, verbose_name='图片描述')
+    photo = models.ImageField(verbose_name='图片', upload_to='photo/')
+    create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
+
+    def __str__(self):
+        return self.info
+
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = '相册'
+        verbose_name_plural = '相册'
