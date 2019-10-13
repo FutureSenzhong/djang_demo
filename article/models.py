@@ -14,14 +14,12 @@ from django.utils import timezone
 from mdeditor.fields import MDTextField
 
 
-class UserInfo(AbstractUser):
+class UserInfo(User):
     """
     用户信息
     """
-    id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
     telephone = models.CharField(max_length=11, null=True, unique=True, verbose_name='用户电话')
     avatar = models.FileField(default="images/favicon.ico", verbose_name='用户头像')
-    create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
     blog = models.OneToOneField(to='Blog', to_field='id', null=True, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -36,30 +34,6 @@ class Blog(models.Model):
     title = models.CharField(verbose_name='个人博客标题', max_length=255)
     site_name = models.CharField(verbose_name='站点名称', max_length=255)
     theme = models.CharField(verbose_name='博客主题', max_length=255)
-
-    def __str__(self):
-        return self.title
-
-
-class Category(models.Model):
-    """
-    文章分类表
-    """
-    id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
-    title = models.CharField(verbose_name='分类标题', max_length=32)
-    article = models.ForeignKey(verbose_name='所属博客', to='ArticlePost', to_field='id', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.title
-
-
-class Tag(models.Model):
-    """
-    文章标签
-    """
-    id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
-    title = models.CharField(verbose_name='标签名称', max_length=32)
-    blog = models.ForeignKey(verbose_name='所属博客', to='ArticlePost', to_field='id', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -80,7 +54,7 @@ class ArticlePost(models.Model):
     image_count = models.IntegerField(default=0, verbose_name='封面图片数量')
     category = models.ForeignKey(to='Category', to_field='id', on_delete=models.CASCADE)
     # through参数可以指定用作中介的中间模型
-    tags = models.ManyToManyField(to="Tag", through='ArticleTag', null=True)
+    tags = models.ManyToManyField(to="Tag", through='ArticleTag')
     # 正文
     body = MDTextField(verbose_name='文章正文')
     # 封面图片
@@ -109,6 +83,28 @@ class ArticlePost(models.Model):
 
     def get_absolute_url(self):
         return 'article/article-detail/%d/' % self.id
+
+
+class Category(models.Model):
+    """
+    文章分类表
+    """
+    id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
+    title = models.CharField(verbose_name='分类标题', max_length=32)
+
+    def __str__(self):
+        return self.title
+
+
+class Tag(models.Model):
+    """
+    文章标签
+    """
+    id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
+    title = models.CharField(verbose_name='标签名称', max_length=32)
+
+    def __str__(self):
+        return self.title
 
 
 class ArticleTag(models.Model):
