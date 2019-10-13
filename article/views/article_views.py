@@ -70,19 +70,25 @@ def article_detail(request, article_id):
     article = ArticlePost.objects.filter(id=article_id).first()
 
     # markdown格式的文章内容
-    article.body = markdown.markdown(article.body, extensions=MARKDOWN_EXTENSIONS)
+    article.body = markdown.markdown(
+        article.body.replace("\r\n", '  \n'),
+        extensions=MARKDOWN_EXTENSIONS)
 
     # 上一篇
     last_article = ArticlePost.objects.filter(id=(article_id+1)).first()
     if last_article:
         # markdown格式的文章内容
-        last_article.body = markdown.markdown(last_article.body, extensions=MARKDOWN_EXTENSIONS)
+        last_article.body = markdown.markdown(
+            last_article.body.replace("\r\n", '  \n'),
+            extensions=MARKDOWN_EXTENSIONS)
 
     # 下一篇
     next_article = ArticlePost.objects.filter(id=(article_id-1)).first()
     if next_article:
         # markdown格式的文章内容
-        next_article.body = markdown.markdown(next_article.body, extensions=MARKDOWN_EXTENSIONS)
+        next_article.body = markdown.markdown(
+            next_article.body.replace("\r\n", '  \n'),
+            extensions=MARKDOWN_EXTENSIONS)
 
     # 需要传递给模板的对象
     # 载入模板，并返回context对象

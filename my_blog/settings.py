@@ -140,8 +140,12 @@ WSGI_APPLICATION = 'my_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_blog',
+        'USER': 'root',         # 数据库用户名
+        'PASSWORD': '123456',     # 密码
+        'HOST': '120.78.155.198',    # 主机
+        'PORT': '3306',         # 数据库使用的端口
     }
 }
 
@@ -195,4 +199,5 @@ MARKDOWN_EXTENSIONS = [
                         'markdown.extensions.extra',
                         # 语法高亮扩展
                         'markdown.extensions.codehilite',
+                        'markdown.extensions.toc',
                         ]

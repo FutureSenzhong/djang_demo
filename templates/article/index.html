@@ -23,10 +23,10 @@
   <!-- 公告开始 -->
   <div class="toppic">
     <li> <a href="/" target="_blank"> <i><img src="{% static 'show_time/images/1.jpg' %}"></i>
-      <h2>安静地做一个爱设计的女子</h2>
+      <h2>安静地做一个佛系的逗逼!</h2>
       <span>学无止境</span> </a> </li>
     <li> <a href="/" target="_blank"> <i><img src="{% static 'show_time/images/2.jpg' %}"></i>
-      <h2>个人博客，属于我的小世界！</h2>
+      <h2>个人博客，属于我的小世界,让我疯狂，也让我成长！</h2>
       <span>学无止境</span> </a> </li>
   </div>
   <!-- 公告结束 -->
@@ -43,20 +43,21 @@
             <li><a href="list.html">文字广告</a></li>
         </ul>
     </div>
-    <div infinite-scroll='post.nextPage()' infinite-scroll-disabled='post.busy' infinite-scroll-distance='1'>
+    {% verbatim %}
+    <div infinite-scroll='post.nextPage()' infinite-scroll-disabled='post.busy' infinite-scroll-distance='0'>
         <div class="blogs" ng-repeat="i in post.items" >
           <h3 class="blogtitle"><a ng-bind="i.title"></a></h3>
             <span ng-switch="i.image_total">
                 <!-- 文章列表封面样式一 -->
                 <span ng-switch-when="1" class="blogpic">
-                    <a href="/article/article-detail/[[i.id]]" title="">
-                        <img src="[[ i.image ]]" alt="封面"></a></span>
+                    <a href="/article/article-detail/{{ i.id }}" title="">
+                        <img src="{{ i.image }}" alt="封面"></a></span>
                 <!-- 文章列表封面样式二 -->
                 <span ng-switch-when="3" class="bplist">
-                    <a href="/article/article-detail/[[i.id]]" title="">
-                      <li><img src="[[ i.image ]]" alt=""></li>
-                      <li><img src="[[ i.image2 ]]" alt=""></li>
-                      <li><img src="[[ i.image3 ]]" alt=""></li>
+                    <a href="/article/article-detail/{{ i.id }}" title="">
+                      <li><img src="{{ i.image }}" alt=""></li>
+                      <li><img src="{{ i.image2 }}" alt=""></li>
+                      <li><img src="{{ i.image3 }}" alt=""></li>
                     </a>
                 </span>
                 <!-- 文章列表封面样式三 -->
@@ -73,21 +74,21 @@
             </ul>
           </div>
             <div style="text-align:right">
-                <a href="/article/article-detail/[[i.id]]" style="background:wheat; ">阅读全文</a>
+                <a href="/article/article-detail/{{ i.id }}" style="background:wheat; ">阅读全文</a>
             </div>
         </div>
     </div>
-
+    {% endverbatim %}
   </main>
   <!-- 博客文章结束 -->
 
   <!-- 侧边栏开始 -->
   <aside class="r_box" >
       <div class="about_me">
-        <h2>博主简介</h2>
+        <h2>楼主简介</h2>
         <ul>
           <i><img src="{% static 'show_time/images/4.jpg' %}"></i>
-          <p><b>杨青</b>，一个80后草根女站长！09年入行。一直潜心研究web前端技术，一边工作一边积累经验，分享一些个人博客模板，以及SEO优化等心得。</p>
+          <p><b>邓sir</b>，一个90后农名工！15年毕业入行。一直潜心研究人生，一边浪迹天涯，一边追求自我，上得了厨房，下得了厅堂，我就是我，不一样的烟火，如果命运要我低头，那就与天斗。</p>
         </ul>
       </div>
       <div class="wdxc">
@@ -101,9 +102,9 @@
         <h2>文章分类</h2>
         <ul>
           <li><a href="/">学无止境（33）</a></li>
-          <li><a href="/">日记（19）</a></li>
-          <li><a href="/">慢生活（520）</a></li>
-          <li><a href="/">美文欣赏（40）</a></li>
+          <li><a href="/">人生杂记（19）</a></li>
+          <li><a href="/">佛系人生（520）</a></li>
+          <li><a href="/">杂谈吐槽（40）</a></li>
         </ul>
       </div>
       <div class="tuijian">
@@ -140,8 +141,8 @@
 {% block script %}
 <script>
     var myApp = angular.module('blogHomeApp', ['infinite-scroll']).config(function ($interpolateProvider) {
-        $interpolateProvider.startSymbol('[[');
-        $interpolateProvider.endSymbol(']]');
+        $interpolateProvider.startSymbol('{{');
+        $interpolateProvider.endSymbol('}}');
     });
 
     myApp.controller('blogPost', ['$scope', '$http', 'Posts', function($scope, $http, Posts){
@@ -167,7 +168,6 @@
             $http.get(url).success(function(data) {
                 var items = data.data;
                 if (data.status_code === 404){
-                  layer.msg("数据加载完毕！");
                   this.busy = true;
                   return;
                 }
