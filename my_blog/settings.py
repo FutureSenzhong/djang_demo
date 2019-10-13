@@ -51,13 +51,13 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/django_blog/my_blog/log/jwt_test.log',  # 这是将普通日志写入到日志文件中的方法，
+            'filename': '../log/jwt_test.log',  # 这是将普通日志写入到日志文件中的方法，
             'formatter': 'standard'
         },
         'default': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '/django_blog/my_blog/log/all.log',      # 日志输出文件
+            'filename': '../log/all.log',      # 日志输出文件
             'maxBytes': 1024*1024*5,                  # 文件大小
             'backupCount': 5,                         # 备份份数
             'formatter': 'standard',                  # 使用哪种formatters日志格式
@@ -172,9 +172,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
