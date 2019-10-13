@@ -154,3 +154,33 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+
+class Banner(models.Model):
+    """
+    轮播图
+    """
+    id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
+    article = models.ForeignKey(verbose_name='评论文章', to='ArticlePost', to_field='id', on_delete=models.CASCADE)
+    user = models.ForeignKey(verbose_name='评论者', to='UserInfo', to_field='id', on_delete=models.CASCADE)
+    content = models.CharField(verbose_name='评论内容', max_length=255)
+    create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
+    parent_comment = models.ForeignKey(to='Comment', null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.content
+
+
+class Link(models.Model):
+
+    """友情链接"""
+    id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
+    name = models.CharField('链接名称', max_length=32)
+    linkurl = models.URLField('网址', max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = '友情链接'
+        verbose_name_plural = '友情链接'

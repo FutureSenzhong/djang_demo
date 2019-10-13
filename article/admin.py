@@ -4,6 +4,14 @@ from django.contrib import admin
 
 
 # 我们需要“告诉”Django，后台中需要添加ArticlePost这个数据表供管理
-from article.models import ArticlePost
+from article.models import *
 
+admin.site.register(UserInfo)
+admin.site.register(Blog)
 admin.site.register(ArticlePost)
+admin.site.register(Category)
+admin.site.register(Tag)
+admin.site.register(ArticleTag)
+admin.site.register(ArticleUpDown)
+admin.site.register(Comment)
+admin.site.register(Banner)
