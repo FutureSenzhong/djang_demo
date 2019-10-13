@@ -18,8 +18,10 @@ class UserInfo(User):
     """
     用户信息
     """
-    avatar = models.FileField(upload_to='user/', verbose_name='用户头像')
-    info = models.CharField(max_length=255, verbose_name='用户介绍')
+    avatar = models.ImageField(upload_to='user/', verbose_name='用户头像')
+    reward = models.ImageField(upload_to='user/', verbose_name='打赏图片')
+    info = models.TextField(max_length=255, default='', verbose_name='用户介绍')
+    vitae = MDTextField(verbose_name='个人简历', default='')
 
     def __str__(self):
         return self.username
@@ -49,9 +51,9 @@ class ArticlePost(models.Model):
     # 正文
     body = MDTextField(verbose_name='文章正文')
     # 封面图片
-    image = models.ImageField(null=True, blank=True, verbose_name='封面图片1')
-    image2 = models.ImageField(null=True, blank=True, verbose_name='封面图片2')
-    image3 = models.ImageField(null=True, blank=True, verbose_name='封面图片3')
+    image = models.ImageField(upload_to='editor/', null=True, blank=True, verbose_name='封面图片1')
+    image2 = models.ImageField(upload_to='editor/', null=True, blank=True, verbose_name='封面图片2')
+    image3 = models.ImageField(upload_to='editor/', null=True, blank=True, verbose_name='封面图片3')
     created = models.DateTimeField(default=timezone.now, verbose_name='创建时间')
     # 自动更新auto_now=True
     updated = models.DateTimeField(auto_now=True, verbose_name='更新时间')
@@ -205,6 +207,9 @@ class Photo(models.Model):
     id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
     info = models.CharField(max_length=255, verbose_name='图片描述')
     photo = models.ImageField(verbose_name='图片', upload_to='photo/')
+    photo1 = models.ImageField(verbose_name='图片', upload_to='photo/')
+    photo2 = models.ImageField(verbose_name='图片', upload_to='photo/')
+    photo3 = models.ImageField(verbose_name='图片', upload_to='photo/')
     create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
 
     def __str__(self):
@@ -214,3 +219,10 @@ class Photo(models.Model):
         ordering = ('-id',)
         verbose_name = '相册'
         verbose_name_plural = '相册'
+
+
+class SiteInfo(models.Model):
+    """网站信息"""
+    id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
+    info = models.CharField(max_length=255, verbose_name='网站描述')
+    key_word = models.CharField(max_length=255, verbose_name='关键字', null=True, blank=True)
