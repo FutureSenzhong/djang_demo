@@ -3,42 +3,44 @@
 
 
 {% block article %}
-{% verbatim %}
 <article ng-app="blogHomeApp" ng-controller="blogPost">
   <!-- 轮播图开始 -->
+    {% verbatim banner %}
   <div class="banner" >
-    <div id="banner" class="fader" >
-          <li class="slide" ng-repeat="banner_image in banner_images" ng-model="banner_image.is_active">
-              <a href="#" target="_blank">
-                  <img src="{{ banner_image.img}}">
-                  <span class="imginfo">{{ banner_image.text_info }}</span>
-              </a>
-          </li>
-          <div class="fader_controls">
-            <div class="page prev" data-target="prev">&lsaquo;</div>
-            <div class="page next" data-target="next">&rsaquo;</div>
+    <div  id="banner" class="fader" >
+        <li class="slide " ng-repeat="img in banner_images" ><a href="{{ img.link_url }}" target="_blank">
+              <img src="{{ img.img}}" style="margin:auto;">
+              <span class="imginfo" ng-bind="img.text_info"></span>
+          </a>
+        </li>
+
+        <div class="carousel-caption">
+            <div class="page prev" data-target="prev">‹</div>
+            <div class="page next" data-target="next">›</div>
             <ul class="pager_list" >
-                <li class="page" data-target="0">0</li>
-                <li class="page active" data-target="1">1</li>
+
             </ul>
-          </div>
+        </div>
     </div>
   </div>
+    {% endverbatim banner %}
   <!-- 轮播图结束 -->
 
   <!-- 公告开始 -->
+    {% verbatim toppic %}
   <div class="toppic">
-    <li> <a href="/" target="_blank"> <i><img src="{% static 'show_time/images/1.jpg' %}"></i>
+    <li> <a href="/" target="_blank"> <i><img src="#"></i>
       <h2>安静地做一个佛系的逗逼!</h2>
       <span>学无止境</span> </a> </li>
-    <li> <a href="/" target="_blank"> <i><img src="{% static 'show_time/images/2.jpg' %}"></i>
+    <li> <a href="/" target="_blank"> <i><img src="#"></i>
       <h2>个人博客，属于我的小世界,让我疯狂，也让我成长！</h2>
       <span>学无止境</span> </a> </li>
   </div>
+    {% endverbatim toppic %}
   <!-- 公告结束 -->
 
   <!-- 文章开始 -->
-
+    {% verbatim main %}
   <main>
     <div class="blogtab">
         <ul id="blogtab">
@@ -72,8 +74,8 @@
           <p class="blogtext" ng-bind="i.body"></p>
           <div class="bloginfo">
             <ul>
-              <li class="author"><a href="/" ng-bind="i.author"></a></li>
-              <li class="lmname"><a href="/">学无止境</a></li>
+              <li class="author"><a href="#" ng-bind="i.author"></a></li>
+              <li class="lmname"><a href="#">学无止境</a></li>
               <li class="timer" ng-bind="i.updated"></li>
               <li class="view"><span>34567</span>已阅读</li>
               <li class="like">9999</li>
@@ -85,31 +87,33 @@
         </div>
     </div>
   </main>
+    {% endverbatim main %}
   <!-- 博客文章结束 -->
 
+    {% verbatim aside %}
   <!-- 侧边栏开始 -->
   <aside class="r_box" >
       <div class="about_me">
-        <h2>楼主简介</h2>
+        <h2>楼主风流史</h2>
         <ul>
-          <i><img src="{% static 'show_time/images/4.jpg' %}"></i>
+          <i><img src="#"></i>
           <p><b>邓sir</b>，一个90后农名工！15年毕业入行。一直潜心研究人生，一边浪迹天涯，一边追求自我，上得了厨房，下得了厅堂，我就是我，不一样的烟火，如果命运要我低头，那就与天斗。</p>
         </ul>
       </div>
       <div class="wdxc">
         <h2>图片精选</h2>
         <ul>
-          <li><a href="/"><img src="{% static 'show_time/images/7.jpg' %}"></a></li>
-          <li><a href="/"><img src="{% static 'show_time/images/8.jpg' %}"></a></li>
+          <li><a href="#"><img src="#"></a></li>
+          <li><a href="#"><img src="#"></a></li>
         </ul>
       </div>
       <div class="fenlei">
         <h2>文章分类</h2>
         <ul>
-          <li><a href="/">学无止境（33）</a></li>
-          <li><a href="/">人生杂记（19）</a></li>
-          <li><a href="/">佛系人生（520）</a></li>
-          <li><a href="/">杂谈吐槽（40）</a></li>
+          <li><a href="#">学无止境（33）</a></li>
+          <li><a href="#">人生杂记（19）</a></li>
+          <li><a href="#">佛系人生（520）</a></li>
+          <li><a href="#">杂谈吐槽（40）</a></li>
         </ul>
       </div>
       <div class="tuijian">
@@ -117,51 +121,55 @@
         
      <div id="content">
         <ul style="display:block;">
-          <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
-          <li><a href="/">【活动作品】柠檬绿兔小白个人博客模板</a></li>
+          <li><a href="#">第二届 优秀个人博客模板比赛参选活动</a></li>
+          <li><a href="#">【活动作品】柠檬绿兔小白个人博客模板</a></li>
         </ul>
                 <ul>
-          <li><a href="/">你是什么人便会遇上什么人</a></li>
-          <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
+          <li><a href="#">你是什么人便会遇上什么人</a></li>
+          <li><a href="#">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
         </ul>
         <ul>
-          <li><a href="/">个人博客，我为什么要用帝国cms？</a></li>
-          <li><a href="/">D设计师博客-一个热爱生活的设计师</a></li>
+          <li><a href="#">个人博客，我为什么要用帝国cms？</a></li>
+          <li><a href="#">D设计师博客-一个热爱生活的设计师</a></li>
         </ul>
        </div>
       </div>
       <div class="guanzhu">
         <h2>关注我 么么哒</h2>
         <ul>
-          <img src="{% static 'show_time/images/wx.jpg' %}">
+          <img src="#">
         </ul>
       </div>
 
   </aside>
+    {% endverbatim aside %}
   <!-- 侧边栏结束 -->
 </article>
-{% endverbatim %}
 {% endblock %}
 
 
 {% block script %}
 <script>
-    var myApp = angular.module('blogHomeApp', ['infinite-scroll']).config(function ($interpolateProvider) {
-        $interpolateProvider.startSymbol('{{');
-        $interpolateProvider.endSymbol('}}');
-    });
+    var myApp = angular.module('blogHomeApp', ['infinite-scroll']);
 
-    myApp.controller('blogPost', ['$scope', '$http', 'Posts', function($scope, $http, Posts){
+    myApp.controller('blogPost', [
+        '$scope', '$http', 'Posts',
+        function($scope, $http, Posts){
         $scope.post = new Posts();
-        console.log($scope.post)
-        // 设置轮播图图片间隔
-        $scope.myInterval = 2000;
-        var banner_url = "{% url 'article:banner' %}"
-        $http.get(banner_url).success(function(data) {
-                if (data.status_code === 200) {
-                  $scope.banner_images = data.data;
-                }
-        })
+        console.log($scope.post);
+        //首页轮播图
+        $http({
+            method:'GET',
+            url:"{% url 'article:banner' %}"
+        }).success(function (data) {
+            if (data.status_code === 200) {
+                $scope.banner_images = data.data;
+                console.log($scope.banner_images);
+            }
+        });
+        setInterval(function () {
+            $('#banner #side').removeStyle()
+        }, 1000)
 
     }]);
 

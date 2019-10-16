@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,6 +24,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ora9^@@(9r_ejuc5oxu8(2$+w%fb=e)b@22la3p0n=6ul^3$r$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
@@ -90,6 +93,7 @@ LOGGING = {
 # Application definition
 
 INSTALLED_APPS = [
+    'simpleui',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -138,6 +142,7 @@ WSGI_APPLICATION = 'my_blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# mysql数据库配置
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -149,6 +154,18 @@ DATABASES = {
     }
 }
 
+# 缓存数据库配置
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://120.78.155.198:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100}
+            # "PASSWORD": "密码",
+        }
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -201,3 +218,9 @@ MARKDOWN_EXTENSIONS = [
                         'markdown.extensions.codehilite',
                         'markdown.extensions.toc',
                         ]
+
+# 管理端配置
+# 管理页图标地址
+SIMPLEUI_LOGO = 'http://127.0.0.1:8000/static/images/favicon.ico'
+
+SIMPLEUI_INDEX = 'https://www.baidu.com'
