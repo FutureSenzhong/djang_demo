@@ -32,6 +32,9 @@ urlpatterns = [
     # 富文本
     path('mdeditor/', include('mdeditor.urls')),
 
+    # 文章api
+    path('api/', include('api.urls')),
+
 ]
 
 

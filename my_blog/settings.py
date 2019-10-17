@@ -90,6 +90,21 @@ LOGGING = {
     },
 }
 
+# api 接口配置
+REST_FRAMEWORK = {
+    # 配置默认页面大小
+    'PAGE_SIZE': 5,
+    # 配置默认的分页类
+    'DEFAULT_PAGINATION_CLASS': 'api.helpers.CustomPagination',
+    # # 配置默认限流类
+    # 'DEFAULT_THROTTLE_CLASSES': (
+    #     'rest_framework.throttling.AnonRateThrottle',
+    # ),
+    # # 配置默认限流策略
+    # 'DEFAULT_THROTTLE_RATES': {
+    #     'anon': '1000/day',
+    # }
+}
 # Application definition
 
 INSTALLED_APPS = [
@@ -105,6 +120,8 @@ INSTALLED_APPS = [
     'user',
     'rest_framework',
     'django_seed',
+    'django_filters',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -158,11 +175,11 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://120.78.155.198:6379",
+        "LOCATION": "redis://:123456@120.78.155.198:6379/0",
+        # "PASSWORD": "密码",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "CONNECTION_POOL_KWARGS": {"max_connections": 100}
-            # "PASSWORD": "密码",
         }
     }
 }
