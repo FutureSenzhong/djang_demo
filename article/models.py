@@ -37,7 +37,7 @@ class ArticlePost(models.Model):
     """
 
     id = models.AutoField(primary_key=True, serialize=False, verbose_name='ID')
-    author = models.ForeignKey(verbose_name='作者', to='UserInfo', on_delete=models.CASCADE)
+    author = models.ForeignKey(UserInfo, verbose_name='作者', on_delete=models.CASCADE)
     title = models.CharField(max_length=255, verbose_name='文章标题')
     desc = models.CharField(max_length=255, verbose_name='文章描述', null=True)
     comment_count = models.IntegerField(default=0, verbose_name='评论数量')
