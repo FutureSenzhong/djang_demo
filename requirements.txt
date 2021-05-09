@@ -10,7 +10,7 @@ django-redis==4.10.0
 django-redis-cache==2.1.0
 django-restframework==0.0.1
 django-seed==0.1.9
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 drf-extensions==0.5.0
 Faker==2.0.2
 importlib-metadata==0.23
