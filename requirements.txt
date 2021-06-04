@@ -2,7 +2,7 @@ amqp==2.5.1
 billiard==3.6.1.0
 casbin==0.8.1
 celery==4.3.0
-Django==2.2.13
+Django==2.2.21
 django-filter==2.2.0
 django-filters==0.2.1
 django-mdeditor==0.1.16
